@@ -1,0 +1,44 @@
+version: "3.8"
+services:
+  postgres-location:
+    image: postgres:18
+    container_name: postgres-location
+    environment:
+      POSTGRES_DB: airline_location_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-location-data:/var/lib/postgresql
+    networks:
+      - airline-network
+  redis-location:
+    image: redis
+    container_name: redis-location
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-location-data:/data
+    networks:
+      - airline-network
+#  postgres-company:
+#    image: postgres:18
+#    container_name: postgres-company
+#    environment:
+#      POSTGRES_DB: airline_company_db
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: postgres
+#    ports:
+#      - "5433:5432"
+#    volumes:
+#      - postgres-company-data:/var/lib/postgresql
+#    networks:
+#      - job-portal-network
+
+volumes:
+  postgres-location-data:
+  redis-location-data:
+
+networks:
+  airline-network:
