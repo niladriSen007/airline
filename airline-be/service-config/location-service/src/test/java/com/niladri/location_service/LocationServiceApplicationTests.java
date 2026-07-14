@@ -1,4 +1,4 @@
-package com.airline.location_service;
+package com.niladri.location_service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
