@@ -30,6 +30,12 @@ public class GlobalExceptionHandler {
                 .body(ApiResponse.error(e.getMessage(), HttpStatus.CONFLICT.value()));
     }
 
+    @ExceptionHandler(AirportAlreadyExistsException.class)
+    public ResponseEntity<ApiResponse<Void>> handleAirportAlreadyExistsException(AirportAlreadyExistsException e) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(ApiResponse.error(e.getMessage(), HttpStatus.CONFLICT.value()));
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponse<Void>> handleValidationException(MethodArgumentNotValidException e) {
         String errors = e.getBindingResult().getFieldErrors().stream()

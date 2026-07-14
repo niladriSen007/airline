@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -123,7 +124,7 @@ public class CityService implements ICityService {
 
     @Override
     public Page<CitySearchResponse> getCitiesByCountryCode(String countryCode, Pageable pageable) {
-        return cityRepository.findByCountryCode(countryCode,pageable).map(CityMapper::toCitySearchResponse);
+        return cityRepository.findByCountryCode(countryCode, pageable).map(CityMapper::toCitySearchResponse);
     }
 
     @Override
@@ -134,6 +135,11 @@ public class CityService implements ICityService {
     @Override
     public boolean validateCityCode(String cityCode) {
         return cityCode != null && cityCode.length() <= 10 && cityCode.matches("[A-Z0-9]{2,10}");
+    }
+
+    @Override
+    public Optional<City> findByCityCode(String cityCode) {
+        return cityRepository.findByCityCode(cityCode);
     }
 
     private boolean cityExistsById(Long cityId) {

@@ -5,6 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -32,6 +35,9 @@ public class City {
     @Size(max = 5)
     @Column(nullable = false)
     private String countryCode;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "city")
+    private Set<Airport> airports = new HashSet<>();
 
     @NotBlank(message = "Country name is required")
     @Size(max = 100)

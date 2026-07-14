@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface CityRepository extends JpaRepository<City, Long> {
     boolean existsByCityCode(@NotBlank(message = "City code is required") @Size(max = 10) String cityCode);
@@ -28,4 +30,6 @@ public interface CityRepository extends JpaRepository<City, Long> {
                                 WHERE c.countryCode = :countryCode
             """)
     Page<CitySearchProjection> findByCountryCode(@NotBlank(message = "Country code is required") @Size(max = 5) String countryCode, Pageable pageable);
+
+    Optional<City> findByCityCode(String cityCode);
 }
