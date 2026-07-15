@@ -35,10 +35,6 @@ public class CityService implements ICityService {
     public CityResponse createCity(CityRequest request) {
         validateCityRequest(request);
 
-        if (validateCityCode(request.getCityCode())) {
-            throw new CityAlreadyExistsException("City with code " + request.getCityCode() + " already exists");
-        }
-
         City city = CityMapper.toCity(request);
         City savedCity = cityRepository.save(city);
 
@@ -60,7 +56,12 @@ public class CityService implements ICityService {
                 continue;
             }
 
-            if (validateCityCode(request.getCityCode())) {
+            if (!validateCityCode(request.getCityCode())) {
+                skippedCodes.add(request.getCityCode() + " (already exists)");
+                continue;
+            }
+
+            if (cityExistsByCityCode(request.getCityCode())) {
                 skippedCodes.add(request.getCityCode() + " (already exists)");
                 continue;
             }
@@ -119,7 +120,7 @@ public class CityService implements ICityService {
 
     @Override
     public Page<CitySearchResponse> searchCities(String keyword, Pageable pageable) {
-        return cityRepository.findCountryByKeyword(keyword, pageable).map(CityMapper::toCitySearchResponse);
+        return cityRepository.findCityByKeyword(keyword, pageable).map(CityMapper::toCitySearchResponse);
     }
 
     @Override
@@ -140,6 +141,12 @@ public class CityService implements ICityService {
     @Override
     public Optional<City> findByCityCode(String cityCode) {
         return cityRepository.findByCityCode(cityCode);
+    }
+
+
+    @Override
+    public Optional<City> findByCityId(Long cityId) {
+        return cityRepository.findById(cityId);
     }
 
     private boolean cityExistsById(Long cityId) {

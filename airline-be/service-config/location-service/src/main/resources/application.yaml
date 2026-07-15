@@ -1,6 +1,13 @@
 spring:
   application:
     name: location-service
+  flyway:
+    enabled: true
+    locations: classpath:db/migrations
+    baseline-on-migrate: true
+    validate-on-migrate: true
+    default-schema: airline
+    schemas: airline
   jpa:
     hibernate:
       ddl-auto: none
@@ -10,6 +17,9 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: airline
+        jdbc:
+          time_zone: Asia/Kolkata
   datasource:
     url: jdbc:postgresql://localhost:5432/airline_location_db
     username: postgres
@@ -23,5 +33,5 @@ spring:
     type: redis
     redis:
       time-to-live: 600000
-  server:
-    port: 5001
+server:
+  port: 5001

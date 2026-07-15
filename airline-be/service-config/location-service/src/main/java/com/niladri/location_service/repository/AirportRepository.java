@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
@@ -16,10 +17,12 @@ import java.util.Optional;
 public interface AirportRepository extends JpaRepository<Airport,Long> {
     boolean existsByIataCode(String iataCode);
 
-    Optional<Airport> findByIataCode(@NotBlank(message = "IATA code is mandatory") @Size(min = 3, max = 3, message = "IATA code must be exactly 3 characters") String iataCode);
+    Optional<Airport> findByIataCode(@NotBlank(message = "IATA code is mandatory") @Size(min = 3, max = 3, message = "IATA code must be exactly 3 characters") @Param("iataCode") String iataCode);
 
     @Query("""
             SELECT a FROM Airport a WHERE a.city.id = :cityId
             """)
-    Optional<Airport> findByCityId(@NotBlank(message = "City ID is mandatory") @Size(min = 2, message = "City ID must be a positive number") Long cityId);
+    Optional<Airport> findByCityId(@NotBlank(message = "City ID is mandatory") @Size(min = 2, message = "City ID must be a positive number") @Param("cityId") Long cityId);
+
+    Optional<Airport> findByName(@NotBlank(message = "Airport name is mandatory") @Param("name") String name);
 }

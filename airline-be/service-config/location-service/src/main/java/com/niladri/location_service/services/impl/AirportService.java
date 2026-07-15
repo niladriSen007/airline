@@ -39,13 +39,13 @@ public class AirportService implements IAirportService {
         if (airportExists) {
             throw new AirportAlreadyExistsException("Airport with IATA code " + request.getIataCode() + " already exists");
         }
-        Optional<City> cityExistsByCityCode = cityService.findByCityCode(request.getCityCode());
+        Optional<City> cityExistsByCityId = cityService.findByCityId(request.getCityId());
 
-        if (cityExistsByCityCode.isEmpty()) {
-            throw new CityNotFoundException("City with code " + request.getCityCode() + " not found");
+        if (cityExistsByCityId.isEmpty()) {
+            throw new CityNotFoundException("City with id " + request.getCityId() + " not found");
         }
 
-        Airport airport = AirportMapper.toAirport(request, cityExistsByCityCode.get());
+        Airport airport = AirportMapper.toAirport(request, cityExistsByCityId.get());
         Airport savedAirport = airportRepository.save(airport);
 
         log.info("Airport created: {} ({})", savedAirport.getName(), savedAirport.getIataCode());
@@ -59,14 +59,14 @@ public class AirportService implements IAirportService {
         List<String> skippedCodes = new ArrayList<>();
 
         for (AirportRequest request : requests) {
-            if (airportRepository.findByIataCode(request.getIataCode()).isPresent()) {
-                skippedCodes.add(request.getIataCode() + " (already exists)");
+            if (airportRepository.findByName(request.getName()).isPresent()) {
+                skippedCodes.add(request.getName() + " (already exists)");
                 continue;
             }
 
-            Optional<City> cityOpt = cityService.findByCityCode(request.getCityCode());
+            Optional<City> cityOpt = cityService.findByCityId(request.getCityId());
             if (cityOpt.isEmpty()) {
-                skippedCodes.add(request.getIataCode() + " (city not found with code: " + request.getCityCode() + ")");
+                skippedCodes.add(request.getName() + " (city not found with id: " + request.getCityId() + ")");
                 continue;
             }
 

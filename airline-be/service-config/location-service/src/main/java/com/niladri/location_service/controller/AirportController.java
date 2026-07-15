@@ -47,7 +47,7 @@ public class AirportController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<AirportResponse>> getAirportById(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<AirportResponse>> getAirportById(@PathVariable(name="id") Long id) {
         return ResponseEntity.ok(
                 ApiResponse.success(
                         airportService.getAirportById(id),
@@ -68,7 +68,7 @@ public class AirportController {
     }
 
     @GetMapping("/city/{cityId}")
-    public ResponseEntity<ApiResponse<List<AirportResponse>>> getAirportsByCityId(@PathVariable Long cityId) {
+    public ResponseEntity<ApiResponse<List<AirportResponse>>> getAirportsByCityId(@PathVariable(name="cityId") Long cityId) {
         return ResponseEntity.ok(
                 ApiResponse.success(
                         airportService.getAirportsByCityId(cityId),
@@ -77,9 +77,9 @@ public class AirportController {
         );
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<ApiResponse<AirportResponse>> updateAirport(
-            @PathVariable Long id,
+            @PathVariable(name="id") Long id,
             @Valid @RequestBody UpdateAirportRequest request) {
         return ResponseEntity.ok(
                 ApiResponse.success(
@@ -90,7 +90,7 @@ public class AirportController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<String>> deleteAirport(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<String>> deleteAirport(@PathVariable(name="id") Long id) {
         airportService.deleteAirport(id);
         return ResponseEntity.ok(
                 ApiResponse.success(

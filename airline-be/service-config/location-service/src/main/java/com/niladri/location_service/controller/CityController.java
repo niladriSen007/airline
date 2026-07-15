@@ -51,17 +51,17 @@ public class CityController {
     // ---------- READ ----------
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<CityResponse>> getCityById(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<CityResponse>> getCityById(@PathVariable(name = "id") Long id) {
         CityResponse response = cityService.getCityById(id);
         return ResponseEntity.ok(ApiResponse.success(response, HttpStatus.OK.value()));
     }
 
     @GetMapping
     public ResponseEntity<ApiResponse<Page<CityResponse>>> getAllCities(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size,
-            @RequestParam(defaultValue = "name") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDirection) {
+            @RequestParam(defaultValue = "0", name = "page") int page,
+            @RequestParam(defaultValue = "20", name = "size") int size,
+            @RequestParam(defaultValue = "name", name = "sortBy") String sortBy,
+            @RequestParam(defaultValue = "asc", name = "sortDirection") String sortDirection) {
 
         Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);
@@ -70,9 +70,9 @@ public class CityController {
 
     // ---------- UPDATE ----------
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<ApiResponse<CityResponse>> updateCity(
-            @PathVariable Long id,
+            @PathVariable(name="id") Long id,
             @Valid @RequestBody UpdateCityRequest request) {
         CityResponse response = cityService.updateCity(id, request);
         return ResponseEntity.ok(ApiResponse.success(response, HttpStatus.OK.value()));
@@ -81,7 +81,7 @@ public class CityController {
     // ---------- DELETE ----------
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> deleteCity(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<Void>> deleteCity(@PathVariable(name = "id") Long id) {
         cityService.deleteCity(id);
         return ResponseEntity.ok(ApiResponse.success(null, HttpStatus.OK.value()));
     }
@@ -90,9 +90,9 @@ public class CityController {
 
     @GetMapping("/search")
     public ResponseEntity<ApiResponse<Page<CitySearchResponse>>> searchCities(
-            @RequestParam String keyword,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size) {
+            @RequestParam(name = "keyword") String keyword,
+            @RequestParam(defaultValue = "0",name = "page") int page,
+            @RequestParam(defaultValue = "20",name = "size") int size) {
 
         Pageable pageable = PageRequest.of(page, size);
         return ResponseEntity.ok(ApiResponse.success(cityService.searchCities(keyword, pageable), HttpStatus.OK.value()));
@@ -100,9 +100,9 @@ public class CityController {
 
     @GetMapping("/country/{countryCode}")
     public ResponseEntity<ApiResponse<Page<CitySearchResponse>>> getCitiesByCountryCode(
-            @PathVariable String countryCode,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size) {
+            @PathVariable(name="countryCode") String countryCode,
+            @RequestParam(defaultValue = "0",name = "page") int page,
+            @RequestParam(defaultValue = "20",name = "size") int size) {
 
         Pageable pageable = PageRequest.of(page, size);
         return ResponseEntity.ok(ApiResponse.success(cityService.getCitiesByCountryCode(countryCode.toUpperCase(), pageable), HttpStatus.OK.value()));
@@ -111,7 +111,7 @@ public class CityController {
     // ---------- VALIDATION ----------
 
     @GetMapping("/exists/{cityCode}")
-    public ResponseEntity<ApiResponse<Boolean>> checkCityExists(@PathVariable String cityCode) {
+    public ResponseEntity<ApiResponse<Boolean>> checkCityExists(@PathVariable(name = "cityCode") String cityCode) {
         return ResponseEntity.ok(ApiResponse.success(cityService.cityExistsByCityCode(cityCode.toUpperCase()), HttpStatus.OK.value()));
     }
 }

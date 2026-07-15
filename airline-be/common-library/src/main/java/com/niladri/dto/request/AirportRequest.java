@@ -30,8 +30,8 @@ public class AirportRequest {
     @Valid
     private Address address;
 
-    @NotBlank(message = "City code is mandatory")
-    private String cityCode;
+    @NotNull(message = "City id is mandatory")
+    private Long cityId;
 
     @Valid
     private Geocode geoCode;

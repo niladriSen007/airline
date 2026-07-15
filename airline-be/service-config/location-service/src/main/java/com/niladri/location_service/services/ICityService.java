@@ -6,6 +6,7 @@ import com.niladri.dto.response.CityResponse;
 import com.niladri.dto.response.CitySearchResponse;
 import com.niladri.location_service.entity.City;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -30,4 +31,5 @@ public interface ICityService {
     boolean validateCityCode(String cityCode);
 
     Optional<City> findByCityCode(@NotBlank(message = "City code is mandatory") String cityCode);
+    Optional<City> findByCityId(@NotNull(message = "City id is mandatory") Long cityId);
 }
