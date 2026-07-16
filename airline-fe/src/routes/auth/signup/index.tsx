@@ -1,5 +1,4 @@
 import { signupSearchSchema } from "@/features/auth/signup/_schema";
-import { LoginPage } from "@/pages/auth/LoginPage";
 import { SignupPage } from "@/pages/auth/SignupPage";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
