@@ -1,4 +1,4 @@
-import LoginForm from "@/components/shared/LoginForm";
+import LoginForm from "@/components/shared/auth/LoginForm";
 import { useLogin } from "@/hooks/auth/useLogin";
 import { Route } from "@/routes/auth/login";
 import { zodResolver } from "@hookform/resolvers/zod";

@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import Navbar from "@/components/shadcn-space/blocks/navbar-01/navbar";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -6,8 +7,9 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="p-2">
-      <h3>Welcome Home!</h3>
+    <div>
+      <Navbar />
+      <Outlet />
     </div>
   );
 }

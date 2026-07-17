@@ -9,15 +9,6 @@ export const router = createRouter({
   context: {
     auth: {
       isAuthenticated: false,
-      login: () => {
-        return new Promise<void>((resolve) => {
-          setTimeout(() => {
-            resolve();
-          }, 1000);
-        });
-      },
-      logout: () => {},
-      user: null,
     },
     queryClient,
   },

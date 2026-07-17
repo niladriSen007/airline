@@ -1,11 +1,10 @@
-import SignupForm from "@/components/shared/SignupForm";
-
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useLogin } from "@/hooks/auth/useLogin";
 import { Route } from "@/routes/auth/signup";
+import SignupForm from "@/components/shared/auth/SignupForm";
 
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),

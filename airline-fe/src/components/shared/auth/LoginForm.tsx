@@ -1,22 +1,22 @@
 import { useForm } from "react-hook-form";
 
 import { LoginRequest } from "@/store/auth/auth-types";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../ui/card";
+} from "../../ui/card";
 import {
   Field,
   FieldContent,
   FieldDescription,
   FieldError,
   FieldLabel,
-} from "../ui/field";
-import { Input } from "../ui/input";
+} from "../../ui/field";
+import { Input } from "../../ui/input";
 
 const LoginForm = ({
   form,

@@ -9,13 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as CityRouteRouteImport } from './routes/city/route'
 import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CityIndexRouteImport } from './routes/city/index'
 import { Route as CityCityIdRouteImport } from './routes/city/$cityId'
+import { Route as CityCreateIndexRouteImport } from './routes/city/create/index'
 import { Route as AuthSignupIndexRouteImport } from './routes/auth/signup/index'
 import { Route as AuthLoginIndexRouteImport } from './routes/auth/login/index'
 
+const CityRouteRoute = CityRouteRouteImport.update({
+  id: '/city',
+  path: '/city',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRouteRoute = AuthRouteRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -27,14 +34,19 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const CityIndexRoute = CityIndexRouteImport.update({
-  id: '/city/',
-  path: '/city/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => CityRouteRoute,
 } as any)
 const CityCityIdRoute = CityCityIdRouteImport.update({
-  id: '/city/$cityId',
-  path: '/city/$cityId',
-  getParentRoute: () => rootRouteImport,
+  id: '/$cityId',
+  path: '/$cityId',
+  getParentRoute: () => CityRouteRoute,
+} as any)
+const CityCreateIndexRoute = CityCreateIndexRouteImport.update({
+  id: '/create/',
+  path: '/create/',
+  getParentRoute: () => CityRouteRoute,
 } as any)
 const AuthSignupIndexRoute = AuthSignupIndexRouteImport.update({
   id: '/signup/',
@@ -50,10 +62,12 @@ const AuthLoginIndexRoute = AuthLoginIndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
+  '/city': typeof CityRouteRouteWithChildren
   '/city/$cityId': typeof CityCityIdRoute
   '/city/': typeof CityIndexRoute
   '/auth/login/': typeof AuthLoginIndexRoute
   '/auth/signup/': typeof AuthSignupIndexRoute
+  '/city/create/': typeof CityCreateIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,46 +76,66 @@ export interface FileRoutesByTo {
   '/city': typeof CityIndexRoute
   '/auth/login': typeof AuthLoginIndexRoute
   '/auth/signup': typeof AuthSignupIndexRoute
+  '/city/create': typeof CityCreateIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
+  '/city': typeof CityRouteRouteWithChildren
   '/city/$cityId': typeof CityCityIdRoute
   '/city/': typeof CityIndexRoute
   '/auth/login/': typeof AuthLoginIndexRoute
   '/auth/signup/': typeof AuthSignupIndexRoute
+  '/city/create/': typeof CityCreateIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/auth'
+    | '/city'
     | '/city/$cityId'
     | '/city/'
     | '/auth/login/'
     | '/auth/signup/'
+    | '/city/create/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/city/$cityId' | '/city' | '/auth/login' | '/auth/signup'
+  to:
+    | '/'
+    | '/auth'
+    | '/city/$cityId'
+    | '/city'
+    | '/auth/login'
+    | '/auth/signup'
+    | '/city/create'
   id:
     | '__root__'
     | '/'
     | '/auth'
+    | '/city'
     | '/city/$cityId'
     | '/city/'
     | '/auth/login/'
     | '/auth/signup/'
+    | '/city/create/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
-  CityCityIdRoute: typeof CityCityIdRoute
-  CityIndexRoute: typeof CityIndexRoute
+  CityRouteRoute: typeof CityRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/city': {
+      id: '/city'
+      path: '/city'
+      fullPath: '/city'
+      preLoaderRoute: typeof CityRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -118,17 +152,24 @@ declare module '@tanstack/react-router' {
     }
     '/city/': {
       id: '/city/'
-      path: '/city'
+      path: '/'
       fullPath: '/city/'
       preLoaderRoute: typeof CityIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof CityRouteRoute
     }
     '/city/$cityId': {
       id: '/city/$cityId'
-      path: '/city/$cityId'
+      path: '/$cityId'
       fullPath: '/city/$cityId'
       preLoaderRoute: typeof CityCityIdRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof CityRouteRoute
+    }
+    '/city/create/': {
+      id: '/city/create/'
+      path: '/create'
+      fullPath: '/city/create/'
+      preLoaderRoute: typeof CityCreateIndexRouteImport
+      parentRoute: typeof CityRouteRoute
     }
     '/auth/signup/': {
       id: '/auth/signup/'
@@ -161,11 +202,26 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
 )
 
+interface CityRouteRouteChildren {
+  CityCityIdRoute: typeof CityCityIdRoute
+  CityIndexRoute: typeof CityIndexRoute
+  CityCreateIndexRoute: typeof CityCreateIndexRoute
+}
+
+const CityRouteRouteChildren: CityRouteRouteChildren = {
+  CityCityIdRoute: CityCityIdRoute,
+  CityIndexRoute: CityIndexRoute,
+  CityCreateIndexRoute: CityCreateIndexRoute,
+}
+
+const CityRouteRouteWithChildren = CityRouteRoute._addFileChildren(
+  CityRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
-  CityCityIdRoute: CityCityIdRoute,
-  CityIndexRoute: CityIndexRoute,
+  CityRouteRoute: CityRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
