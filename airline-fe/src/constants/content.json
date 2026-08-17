@@ -1,0 +1,165 @@
+{
+  "hero": {
+    "tag": "EXPLORE. DREAM. DISCOVER.",
+    "tagIcon": "✈️",
+    "heading1": "Discover Amazing",
+    "heading2": "Places with Us",
+    "description": "Find the best tours, hotels and flights: everything you need for the perfect trip.",
+    "ctaButton": "Explore Now"
+  },
+  "flightSearch": {
+    "tabs": [
+      {
+        "id": "flights",
+        "label": "Flights",
+        "icon": "✈️"
+      },
+      {
+        "id": "hotels",
+        "label": "Hotels",
+        "icon": "🏨"
+      },
+      {
+        "id": "tours",
+        "label": "Tours",
+        "icon": "🎭"
+      },
+      {
+        "id": "packages",
+        "label": "Packages",
+        "icon": "🎁"
+      }
+    ],
+    "fields": {
+      "from": {
+        "label": "From",
+        "placeholder": "New York (NYC)",
+        "icon": "✈️"
+      },
+      "to": {
+        "label": "To",
+        "placeholder": "Where to?",
+        "icon": "📍"
+      },
+      "depart": {
+        "label": "Depart",
+        "placeholder": "May 20, 2024",
+        "icon": "📅"
+      },
+      "return": {
+        "label": "Return",
+        "placeholder": "May 27, 2024",
+        "icon": "📅"
+      },
+      "travelers": {
+        "label": "Travelers",
+        "placeholder": "2 Adults, 1 Child",
+        "icon": "👤"
+      }
+    },
+    "searchButton": "Search",
+    "searchIcon": "🔍"
+  },
+  "benefits": [
+    {
+      "id": 1,
+      "title": "Best Price Guarantee",
+      "description": "We compare all the best deals always"
+    },
+    {
+      "id": 2,
+      "title": "24/7 Customer Support",
+      "description": "We're here to help you anytime, anywhere"
+    },
+    {
+      "id": 3,
+      "title": "Secure Bookings",
+      "description": "Your data and payments are 100% safe with us"
+    },
+    {
+      "id": 4,
+      "title": "Handpicked Experiences",
+      "description": "Curated tours and schedules for unforgettable trips"
+    }
+  ],
+  "popularDestinations": {
+    "title": "Popular Destinations",
+    "icon": "✈️",
+    "viewAllButton": "View All Destinations",
+    "destinations": [
+      {
+        "id": 1,
+        "name": "Thailand",
+        "location": "Phuket",
+        "price": 699,
+        "badge": "Bestseller",
+        "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=400&fit=crop",
+        "badgeColor": "bg-blue-500"
+      },
+      {
+        "id": 2,
+        "name": "France",
+        "location": "Paris",
+        "price": 799,
+        "badge": "Popular",
+        "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=500&h=400&fit=crop",
+        "badgeColor": "bg-pink-500"
+      },
+      {
+        "id": 3,
+        "name": "Bali, Indonesia",
+        "location": "Ubud",
+        "price": 599,
+        "badge": "Trending",
+        "image": "https://images.unsplash.com/photo-1537225228614-b4fad34a0b60?w=500&h=400&fit=crop",
+        "badgeColor": "bg-blue-600"
+      },
+      {
+        "id": 4,
+        "name": "Dubai, UAE",
+        "location": "Dubai",
+        "price": 899,
+        "badge": "Bestseller",
+        "image": "https://images.unsplash.com/photo-1512453333214-14ae30a63528?w=500&h=400&fit=crop",
+        "badgeColor": "bg-indigo-900"
+      }
+    ]
+  },
+  "whyChooseUs": {
+    "heading": "Why Choose",
+    "brandName": "Wanderly?",
+    "features": [
+      {
+        "id": 1,
+        "icon": "globe",
+        "title": "Wide Range of Choices",
+        "description": "Choose from thousands of flights, hotels and tours worldwide."
+      },
+      {
+        "id": 2,
+        "icon": "thumbsup",
+        "title": "Trusted by Travelers",
+        "description": "Join millions of happy travelers around the world."
+      },
+      {
+        "id": 3,
+        "icon": "wallet",
+        "title": "Flexible & Easy Booking",
+        "description": "Book with ease and adjust your plans if needed."
+      },
+      {
+        "id": 4,
+        "icon": "zap",
+        "title": "Exclusive Deals",
+        "description": "Get access to exclusive discounts and special offers."
+      }
+    ],
+    "cta": {
+      "tag": "LET'S GO!",
+      "heading": "Your Next Adventure Awaits!",
+      "description": "Discover breathtaking places and create unforgettable memories.",
+      "button": "Plan Your Trip",
+      "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=500&fit=crop"
+    }
+  }
+}

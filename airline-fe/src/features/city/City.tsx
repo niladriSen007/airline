@@ -190,7 +190,7 @@ const City = () => {
               <path d="m21 21-4.35-4.35" strokeLinecap="round" />
             </svg>
             <Input
-              placeholder="Search city..."
+              placeholder="Search city name..."
               value={
                 (table.getColumn("name")?.getFilterValue() as string) ?? ""
               }
@@ -229,7 +229,7 @@ const City = () => {
 
         {/* ── Table ── */}
         <div className="max-h-[calc(100vh-24rem)] flex flex-col">
-          <ScrollArea className="flex-1 h-0 ">
+          <ScrollArea className="flex-1 h-0">
             <Table>
               <TableHeader>
                 {table.getHeaderGroups().map((hg) => (

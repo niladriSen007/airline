@@ -2,7 +2,7 @@ package com.niladri.location_service.mapper;
 
 import com.niladri.dto.request.AirportRequest;
 import com.niladri.dto.request.UpdateAirportRequest;
-import com.niladri.dto.request.UpdateCityRequest;
+import com.niladri.dto.response.AirportListResponse;
 import com.niladri.dto.response.AirportResponse;
 import com.niladri.location_service.entity.Airport;
 import com.niladri.location_service.entity.City;
@@ -33,25 +33,38 @@ public class AirportMapper {
         );
     }
 
+    public static AirportListResponse toAirportListResponse(Airport airport) {
+        City city = airport.getCity();
+        return new AirportListResponse(
+                airport.getId(),
+                airport.getIataCode(),
+                airport.getName(),
+                airport.getTimeZoneId(),
+                city != null ? city.getCityCode() : null,
+                city != null ? city.getName() : null
+        );
+    }
+
     public static Airport updateAirport(Airport airport, UpdateAirportRequest request) {
-        if(request.getName() != null) {
+        if (request.getName() != null) {
             airport.setName(request.getName().trim());
         }
-        if(request.getTimeZone() != null) {
+        if (request.getTimeZone() != null) {
             airport.setTimeZoneId(request.getTimeZone().getId());
         }
-        if(request.getAddress() != null) {
+        if (request.getAddress() != null) {
             airport.setAddress(request.getAddress());
         }
-        if(request.getCityCode() != null) {
+        if (request.getCityCode() != null) {
             City city = airport.getCity();
-            if(city != null) {
+            if (city != null) {
                 city.setCityCode(request.getCityCode().toUpperCase().trim());
             }
         }
-        if(request.getGeoCode() != null) {
+        if (request.getGeoCode() != null) {
             airport.setGeoCode(request.getGeoCode());
         }
         return airport;
     }
 }
+

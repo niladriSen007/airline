@@ -2,10 +2,12 @@ package com.niladri.location_service.controller;
 
 import com.niladri.dto.request.CityRequest;
 import com.niladri.dto.request.UpdateCityRequest;
+import com.niladri.dto.response.CityListResponse;
 import com.niladri.dto.response.CityResponse;
 import com.niladri.dto.response.CitySearchResponse;
 import com.niladri.location_service.services.ICityService;
 import com.niladri.payload.ApiResponse;
+import com.niladri.payload.PagedResponse;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -57,7 +59,7 @@ public class CityController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<Page<CityResponse>>> getAllCities(
+    public ResponseEntity<ApiResponse<PagedResponse<CityListResponse>>> getAllCities(
             @RequestParam(defaultValue = "0", name = "page") int page,
             @RequestParam(defaultValue = "20", name = "size") int size,
             @RequestParam(defaultValue = "name", name = "sortBy") String sortBy,

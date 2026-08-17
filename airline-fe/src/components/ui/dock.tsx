@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, type FC } from "react";
-import { motion, Transition } from "motion/react";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { motion, Transition } from "motion/react";
+import React, { useState, type FC } from "react";
 
+import { cn } from "@/lib/utils";
 import {
   AddSquareIcon,
   MessageNotification01Icon,
@@ -11,7 +12,8 @@ import {
   Search01Icon,
   Settings01Icon,
 } from "@hugeicons/core-free-icons";
-import { cn } from "@/lib/utils";
+import { EditCity } from "./edit-city";
+import { CityData } from "@/features/city/_types";
 
 export interface DockItem {
   id: number;
@@ -43,19 +45,20 @@ export const Dock: FC<DockProps> = ({ items }) => {
   const dockItems = items ?? DEFAULT_DOCK_ITEMS;
   const [selected, setSelected] = useState<number | null>(null);
   const [animateSelected, setAnimateSelected] = useState<number | null>(null);
+  const [showDialog, setShowDialog] = useState<number | null>(null);
 
-  const actions: Record<number, () => void> = {
-    1: () => console.log("Show action triggered"),
-    2: () => console.log("Edit action triggered"),
-    3: () => console.log("Delete action triggered"),
-  };
+  const [cityData, setCityData] = useState<CityData>({
+    id: 1,
+    name: "New York",
+    cityCode: "NYC",
+    countryCode: "US",
+    countryName: "United States",
+    timeZoneOffset: "-05:00",
+  });
 
   function handleAction(itemId: number) {
-    const action = actions[itemId];
-    if (action) {
-      action();
-    } else {
-      console.log(`No action defined for item with id ${itemId}`);
+    if (itemId === 1) {
+      setShowDialog(itemId);
     }
   }
 
@@ -72,7 +75,7 @@ export const Dock: FC<DockProps> = ({ items }) => {
       <motion.div
         layout
         transition={dockSpring}
-        className="relative flex items-end rounded-3xl shadow-sm"
+        className="relative flex items-end border-none shadow-none"
       >
         {dockItems.map((item) => (
           <motion.div
@@ -128,6 +131,14 @@ export const Dock: FC<DockProps> = ({ items }) => {
           </motion.div>
         ))}
       </motion.div>
+      {showDialog === 1 && (
+        <EditCity
+          isOpen={showDialog === 1}
+          onClose={() => setShowDialog(null)}
+          initialData={cityData}
+          onSave={() => {}}
+        />
+      )}
     </div>
   );
 };

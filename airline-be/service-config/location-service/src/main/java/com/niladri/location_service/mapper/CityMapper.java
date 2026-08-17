@@ -2,6 +2,7 @@ package com.niladri.location_service.mapper;
 
 import com.niladri.dto.request.CityRequest;
 import com.niladri.dto.request.UpdateCityRequest;
+import com.niladri.dto.response.CityListResponse;
 import com.niladri.dto.response.CityResponse;
 import com.niladri.dto.response.CitySearchResponse;
 import com.niladri.location_service.entity.City;
@@ -55,6 +56,17 @@ public class CityMapper {
                 response.getId(),
                 response.getName(),
                 response.getCityCode()
+        );
+    }
+
+    public static CityListResponse toCityListResponse(City city) {
+        return new CityListResponse(
+                city.getId(),
+                city.getName(),
+                city.getCityCode(),
+                city.getCountryCode(),
+                city.getCountryName(),
+                city.getTimeZoneId()
         );
     }
 }

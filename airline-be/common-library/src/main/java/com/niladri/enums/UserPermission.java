@@ -1,0 +1,21 @@
+package com.niladri.enums;
+
+public enum UserPermission {
+    VIEW_AIRPORT,
+    CREATE_AIRPORT,
+    UPDATE_AIRPORT,
+    DELETE_AIRPORT,
+    VIEW_CITY,
+    CREATE_CITY,
+    UPDATE_CITY,
+    DELETE_CITY,
+    VIEW_CUSTOMER,
+    CREATE_CUSTOMER,
+    UPDATE_CUSTOMER,
+    DELETE_CUSTOMER,
+    BOOK_TICKET,
+    CREATE_TICKET,
+    UPDATE_TICKET,
+    CANCEL_TICKET,
+    VIEW_BOOKINGS,
+}

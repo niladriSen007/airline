@@ -2,14 +2,19 @@ package com.niladri.location_service.controller;
 
 import com.niladri.dto.request.AirportRequest;
 import com.niladri.dto.request.UpdateAirportRequest;
+import com.niladri.dto.response.AirportListResponse;
 import com.niladri.dto.response.AirportResponse;
 import com.niladri.location_service.services.IAirportService;
 import com.niladri.payload.ApiResponse;
+import com.niladri.payload.PagedResponse;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,10 +63,16 @@ public class AirportController {
 
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<AirportResponse>>> getAllAirports() {
+    public ResponseEntity<ApiResponse<PagedResponse<AirportListResponse>>> getAllAirports(
+            @RequestParam(defaultValue = "0", name = "page") int page,
+            @RequestParam(defaultValue = "20", name = "size") int size,
+            @RequestParam(defaultValue = "name", name = "sortBy") String sortBy,
+            @RequestParam(defaultValue = "asc", name = "sortDirection") String sortDirection) {
+        Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
         return ResponseEntity.ok(
                 ApiResponse.success(
-                        airportService.getAllAirports(),
+                        airportService.getAllAirports(pageable),
                         HttpStatus.OK.value()
                 )
         );

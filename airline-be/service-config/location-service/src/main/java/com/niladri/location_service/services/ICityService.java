@@ -2,9 +2,11 @@ package com.niladri.location_service.services;
 
 import com.niladri.dto.request.CityRequest;
 import com.niladri.dto.request.UpdateCityRequest;
+import com.niladri.dto.response.CityListResponse;
 import com.niladri.dto.response.CityResponse;
 import com.niladri.dto.response.CitySearchResponse;
 import com.niladri.location_service.entity.City;
+import com.niladri.payload.PagedResponse;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Page;
@@ -20,7 +22,7 @@ public interface ICityService {
 
     CityResponse updateCity(Long cityId, UpdateCityRequest request);
     void deleteCity(Long cityId);
-    Page<CityResponse> getAllCities(Pageable pageable);
+    PagedResponse<CityListResponse> getAllCities(Pageable pageable);
 
     // ---------- Search & Query ----------
     Page<CitySearchResponse> searchCities(String keyword, Pageable pageable);

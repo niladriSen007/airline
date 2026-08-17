@@ -2,6 +2,7 @@ package com.niladri.location_service.services.impl;
 
 import com.niladri.dto.request.AirportRequest;
 import com.niladri.dto.request.UpdateAirportRequest;
+import com.niladri.dto.response.AirportListResponse;
 import com.niladri.dto.response.AirportResponse;
 import com.niladri.location_service.entity.Airport;
 import com.niladri.location_service.entity.City;
@@ -12,10 +13,13 @@ import com.niladri.location_service.mapper.AirportMapper;
 import com.niladri.location_service.repository.AirportRepository;
 import com.niladri.location_service.services.IAirportService;
 import com.niladri.location_service.services.ICityService;
+import com.niladri.payload.PagedResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -94,10 +98,18 @@ public class AirportService implements IAirportService {
     }
 
     @Override
-    public List<AirportResponse> getAllAirports() {
-        return airportRepository.findAll().stream()
-                .map(AirportMapper::toAirportResponse)
-                .toList();
+    public PagedResponse<AirportListResponse> getAllAirports(Pageable pageable) {
+        Page<AirportListResponse> page = airportRepository.findAll(pageable)
+                .map(AirportMapper::toAirportListResponse);
+        return new PagedResponse<>(
+                page.getContent(),
+                page.getNumber(),
+                page.getSize(),
+                page.getTotalElements(),
+                page.getTotalPages(),
+                page.isFirst(),
+                page.isLast()
+        );
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.niladri.location_service.services.impl;
 
 import com.niladri.dto.request.CityRequest;
 import com.niladri.dto.request.UpdateCityRequest;
+import com.niladri.dto.response.CityListResponse;
 import com.niladri.dto.response.CityResponse;
 import com.niladri.dto.response.CitySearchResponse;
 import com.niladri.location_service.entity.City;
@@ -11,6 +12,7 @@ import com.niladri.location_service.exceptions.CityWithCityCodeAlreadyExistsExce
 import com.niladri.location_service.mapper.CityMapper;
 import com.niladri.location_service.repository.CityRepository;
 import com.niladri.location_service.services.ICityService;
+import com.niladri.payload.PagedResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -114,8 +116,17 @@ public class CityService implements ICityService {
     }
 
     @Override
-    public Page<CityResponse> getAllCities(Pageable pageable) {
-        return cityRepository.findAll(pageable).map(CityMapper::toCityResponse);
+    public PagedResponse<CityListResponse> getAllCities(Pageable pageable) {
+        Page<CityListResponse> page = cityRepository.findAll(pageable).map(CityMapper::toCityListResponse);
+        return new PagedResponse<>(
+                page.getContent(),
+                page.getNumber(),
+                page.getSize(),
+                page.getTotalElements(),
+                page.getTotalPages(),
+                page.isFirst(),
+                page.isLast()
+        );
     }
 
     @Override
